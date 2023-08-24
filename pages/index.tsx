@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import Bridge from "../components/Icons/Bridge";
-import Logo from "../components/Icons/Logo";
+import { InstagramEmbed } from "react-social-media-embed";
 import Modal from "../components/Modal";
 import cloudinary from "../utils/cloudinary";
 import getBase64ImageUrl from "../utils/generateBlurPlaceholder";
@@ -27,7 +27,26 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
       setLastViewedPhoto(null);
     }
   }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
-
+  const socials = [
+    {
+      url: "https://www.instagram.com/p/CsYXskYr0vC/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+    },
+    {
+      url: "https://www.instagram.com/reel/Cq8UNZAI_tp/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+    },
+    {
+      url: "https://www.instagram.com/p/CwKufqayqhq/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+    },
+    {
+      url: "    https://www.instagram.com/p/CwFSMNYS61w/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+    },
+    {
+      url: "     https://www.instagram.com/p/CwUXo9jyJXq/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+    },
+    {
+      url: "      https://www.instagram.com/reel/CvglO54P9gh/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+    },
+  ];
   return (
     <>
       <Head>
@@ -41,7 +60,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           content="https://nextjsconf-pics.vercel.app/og-image.png"
         />
       </Head>
-      <main className="md:mx-auto p-4 pb-0  ">
+      <main className="p-4 pb-0 md:mx-auto  ">
         {photoId && (
           <Modal
             images={images}
@@ -51,21 +70,23 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           />
         )}
         <Banner />
-        <div className="gap-4 overflow-x-hidden md:px-2 pt-3 md:flex md:overflow-hidden flex-row-reverse">
+        <div className="flex-row-reverse justify-end gap-4 pt-3 md:flex md:overflow-hidden md:px-2"
+        style={{height:"100%"}}>
           <div
-            className=" scrollbar 
+            className=" scrollbar md:w-2/3 
               "
             style={{
               overflowY: "auto",
               height: "100%",
               maxHeight: "85vh",
+              width:"100%"
             }}
           >
             <div
               className=" columns-1 gap-4 px-2 sm:columns-2 xl:columns-2 2xl:columns-3
                   "
             >
-              {images.map(({ id, public_id, format, blurDataUrl }) => (
+              {/* {images.map(({ id, public_id, format, blurDataUrl }) => (
                 <Link
                   key={id}
                   href={`/?photoId=${id}`}
@@ -91,37 +112,27 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   25vw"
                   />
                 </Link>
-              ))}
-              {images.map(({ id, public_id, format, blurDataUrl }) => (
-                <Link
-                  key={id}
-                  href={`/?photoId=${id}`}
-                  as={`/p/${id}`}
-                  ref={
-                    id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
-                  }
-                  shallow
-                  className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+              ))} */}
+              {socials.map((links, idx) => (
+                <div
+                  key={idx}
+                  // href={`/?photoId=${id}`}
+                  // as={`/p/${id}`}
+                  // ref={
+                  //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
+                  // }
+                  // shallow
+                  className="py-2"
+                  // className="after:content group relative mx-2 mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                 >
-                  <Image
-                    alt="Next.js Conf photo"
-                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                    style={{ transform: "translate3d(0, 0, 0)" }}
-                    placeholder="blur"
-                    blurDataURL={blurDataUrl}
-                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
-                    width={720}
-                    height={480}
-                    sizes="(max-width: 640px) 100vw,
-                  (max-width: 1280px) 50vw,
-                  (max-width: 1536px) 33vw,
-                  25vw"
+                  <InstagramEmbed url={links.url} width={328} 
+                  // height={480} 
                   />
-                </Link>
+                </div>
               ))}
             </div>
           </div>
-          <div className="after:content relativemd:pb-4 relative mb-2 flex max-h-full max-w-[340px]  flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6  pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0 ">
+          <div className="after:content relativemd:pb-4 relative mb-2 flex max-h-full max-w-[340px]  flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6  pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0  md:w-1/3 ">
             {/* <div className="absolute inset-0 flex items-center justify-center opacity-20">
               <span className="flex  max-w-full items-center justify-center">
                 <Bridge />

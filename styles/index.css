@@ -8,20 +8,19 @@
   }
 }
 body {
-  overflow: hidden;
   width: 100vw;
   height: 100vh;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 4px;
+  height: 4px;
   background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #9e9e9e;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-track {

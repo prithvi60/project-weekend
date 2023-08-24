@@ -41,7 +41,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           content="https://nextjsconf-pics.vercel.app/og-image.png"
         />
       </Head>
-      <main className="mx-auto p-4 pb-0  ">
+      <main className="md:mx-auto p-4 pb-0  ">
         {photoId && (
           <Modal
             images={images}
@@ -51,55 +51,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           />
         )}
         <Banner />
-        <div className="flex gap-4 overflow-x-hidden px-2 pt-3">
-          <div className=" after:content max-h-full mb-2 relativemd:pb-4 flex max-w-[340px]  flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6  pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0 ">
-            {/* <div className="absolute inset-0 flex items-center justify-center opacity-20">
-              <span className="flex  max-w-full items-center justify-center">
-                <Bridge />
-              </span>
-              <span className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
-            </div> */}
-            <h1 className="pt-8 text-base font-bold uppercase tracking-widest">
-              Vaara Irudhi
-            </h1>
-            <h1 className="mb-4 mt-2 text-base font-bold uppercase tracking-widest">
-              Community run latest events page happening in Chennai.
-            </h1>
-            <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
-              We cover all the latest events in Chennai
-            </p>
-            <a
-              className="pointer z-10 mt-2 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
-              href="https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cloudinary&project-name=nextjs-image-gallery&repository-name=with-cloudinary&env=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,CLOUDINARY_FOLDER&envDescription=API%20Keys%20from%20Cloudinary%20needed%20to%20run%20this%20application"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Subscribe for updates
-            </a>
-            <div className="absolute bottom-6  px-2 text-center text-white/80">
-              Powered by{" "}
-              <div className="text-sm">
-              <a
-                href="https://webibee.com/"
-                target="_blank"
-                className="pr-2 font-semibold hover:text-white"
-                rel="noreferrer"
-              >
-                Webibee
-              </a>
-              |
-              <a
-                href="https://webibee.com/"
-                target="_blank"
-                className="pl-2 font-semibold hover:text-white"
-                rel="noreferrer"
-              >
-                SolveforX
-              </a>
-              </div>
-            </div>
-          </div>
-          {/* <div className=""> */}
+        <div className="gap-4 overflow-x-hidden md:px-2 pt-3 md:flex md:overflow-hidden flex-row-reverse">
           <div
             className=" scrollbar 
               "
@@ -167,6 +119,53 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   />
                 </Link>
               ))}
+            </div>
+          </div>
+          <div className="after:content relativemd:pb-4 relative mb-2 flex max-h-full max-w-[340px]  flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6  pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0 ">
+            {/* <div className="absolute inset-0 flex items-center justify-center opacity-20">
+              <span className="flex  max-w-full items-center justify-center">
+                <Bridge />
+              </span>
+              <span className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
+            </div> */}
+            <h1 className="pt-8 text-base font-bold uppercase tracking-widest">
+              Vaara Irudhi
+            </h1>
+            <h1 className="mb-4 mt-2 text-base font-bold uppercase tracking-widest">
+              Community run latest events page happening in Chennai.
+            </h1>
+            <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
+              We cover all the latest events in Chennai
+            </p>
+            <a
+              className="pointer z-10 mt-2 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
+              href="https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cloudinary&project-name=nextjs-image-gallery&repository-name=with-cloudinary&env=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,CLOUDINARY_FOLDER&envDescription=API%20Keys%20from%20Cloudinary%20needed%20to%20run%20this%20application"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Subscribe for updates
+            </a>
+            <div className="absolute bottom-6  px-2 text-center text-white/80">
+              Powered by{" "}
+              <div className="text-sm">
+                <a
+                  href="https://webibee.com/"
+                  target="_blank"
+                  className="pr-2 font-semibold hover:text-white"
+                  rel="noreferrer"
+                >
+                  Webibee
+                </a>
+                |
+                <a
+                  href="https://webibee.com/"
+                  target="_blank"
+                  className="pl-2 font-semibold hover:text-white"
+                  rel="noreferrer"
+                >
+                  SolveforX
+                </a>
+              </div>
             </div>
           </div>
         </div>

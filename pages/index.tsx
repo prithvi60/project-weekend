@@ -12,6 +12,7 @@ import getBase64ImageUrl from "../utils/generateBlurPlaceholder";
 import type { ImageProps } from "../utils/types";
 import { useLastViewedPhoto } from "../utils/useLastViewedPhoto";
 import Banner from "../components/Banner";
+import content from "../utils/instaposts.json";
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter();
@@ -47,6 +48,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
       url: "      https://www.instagram.com/reel/CvglO54P9gh/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
     },
   ];
+  console.log("scraper", content);
   return (
     <>
       <Head>
@@ -70,8 +72,10 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           />
         )}
         <Banner />
-        <div className="flex-row-reverse justify-end gap-4 pt-3 md:flex md:overflow-hidden md:px-2"
-        style={{height:"100%"}}>
+        <div
+          className="flex-row-reverse justify-end gap-2 pt-3 md:flex md:overflow-hidden md:px-0"
+          style={{ height: "100%" }}
+        >
           <div
             className=" scrollbar md:w-2/3 
               "
@@ -79,41 +83,74 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               overflowY: "auto",
               height: "100%",
               maxHeight: "85vh",
-              width:"100%"
+              width: "100%",
             }}
           >
             <div
-              className=" columns-1 gap-4 px-2 sm:columns-2 xl:columns-2 2xl:columns-3
+              className=" columns-1 gap-1  sm:columns-2 xl:columns-3 2xl:columns-4
                   "
             >
-              {/* {images.map(({ id, public_id, format, blurDataUrl }) => (
-                <Link
-                  key={id}
-                  href={`/?photoId=${id}`}
-                  as={`/p/${id}`}
-                  ref={
-                    id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
+              {content.map((item, idx) => (
+                // <Link
+                //   key={idx}
+                //   href={item.url}
+                //   target="blank"
+                //   // as={`/p/${id}`}
+                //   // ref={
+                //   //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
+                //   // }
+                //   shallow
+                //   className="after:content group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                // >
+                //   {/* <img src={"https://scontent-atl3-2.cdninstagram.com/v/t51.2885-15/369762580_1946490639083941_2901534663185666869_n.jpg?stp=dst-jpg_e15&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=Ek-MtV3hqKAAX9K4EA3&edm=AP_V10EBAAAA&ccb=7-5&oh=00_AfCOmRfmqzncGmnR_glifZ2Cv39n3MCfs21jO0ZGgY-jOA&oe=64EA1B8D&_nc_sid=2999b8"} alt={"posts"}
+                //     className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
+
+                //    width={480}
+                //    height={480}
+                // /> */}
+                //   <Image
+                //     alt="posts"
+                //     className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
+                //     style={{ transform: "translate3d(0, 0, 0)" }}
+                //     placeholder="blur"
+                //     blurDataURL={
+                //       "data:image/jpeg;base64,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"
+                //     }
+                //     loader={() => item.displayUrl}
+                //     src={item.displayUrl}
+                //     width={480}
+                //     height={480}
+                //     sizes="(max-width: 640px) 100vw,
+                //   (max-width: 1280px) 50vw,
+                //   (max-width: 1536px) 33vw,
+                //   25vw"
+                //   />
+                // </Link>
+                <div
+                  key={idx}
+                  className="relative cursor-pointer rounded-md mx-2"
+                  style={
+                    {
+                      // maxHeight:"800px"
+                    }
                   }
-                  shallow
-                  className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                 >
-                  <Image
-                    alt="Next.js Conf photo"
-                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                    style={{ transform: "translate3d(0, 0, 0)" }}
-                    placeholder="blur"
-                    blurDataURL={blurDataUrl}
-                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
-                    width={720}
-                    height={480}
-                    sizes="(max-width: 640px) 100vw,
-                  (max-width: 1280px) 50vw,
-                  (max-width: 1536px) 33vw,
-                  25vw"
-                  />
-                </Link>
-              ))} */}
-              {socials.map((links, idx) => (
+                  <div
+                    style={
+                      {
+                        // scale:"0.9"
+                      }
+                    }
+                  >
+                    <InstagramEmbed
+                      url={item.url}
+                      width="100%"
+                      height={"inherit"}
+                    />
+                  </div>
+                </div>
+              ))}
+              {/* {socials.map((links, idx) => (
                 <div
                   key={idx}
                   // href={`/?photoId=${id}`}
@@ -129,10 +166,10 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   // height={480} 
                   />
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
-          <div className="after:content relativemd:pb-4 relative mb-2 flex max-h-full max-w-[340px]  flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6  pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0  md:w-1/3 ">
+          <div className="after:content relative relative mb-2 hidden max-h-full max-w-[340px] flex-col items-center  justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-0 pt-64 text-center  text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight md:flex md:w-1/3 md:pb-4  lg:pt-0 ">
             {/* <div className="absolute inset-0 flex items-center justify-center opacity-20">
               <span className="flex  max-w-full items-center justify-center">
                 <Bridge />
@@ -142,7 +179,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             <h1 className="pt-8 text-base font-bold uppercase tracking-widest">
               Vaara Irudhi
             </h1>
-            <h1 className="mb-4 mt-2 text-base font-bold uppercase tracking-widest">
+            <h1 className="mb-4 mt-2  text-sm font-semibold uppercase tracking-widest">
               Community run latest events page happening in Chennai.
             </h1>
             <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">

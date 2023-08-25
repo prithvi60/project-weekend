@@ -1,4 +1,4 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
   render() {
@@ -26,10 +26,11 @@ class MyDocument extends Document {
         <body className="bg-black antialiased">
           <Main />
           <NextScript />
+          <script async src="//www.instagram.com/embed.js"></script>
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default MyDocument
+export default MyDocument;

@@ -24,6 +24,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
     { name: "hemamalini_mk" },
     { name: "praveez_musiq" },
     { name: "no mentions" },
+    { name: "last 10 days" },
   ];
   // const socials = [
   //   { name: "classiculttheband" },
@@ -99,14 +100,9 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter();
   const { photoId } = router.query;
   const today = new Date();
-  const tenDaysFromNow = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000);
 
-  // useEffect(() => {
-  //   console.log("socials changed to", list);
-  // }, [list]);
-  // useEffect(() => {
-  //   console.log("area changed to", listTwo);
-  // }, [listTwo]);
+  //   console.log(days);
+  // console.log("split",date.split("-")[1])
   return (
     <>
       <Head>
@@ -157,12 +153,17 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             >
               {/* filter based on states */}
               {content
-                .filter(
-                  (item) => item.mentions[0] === list.name
+                .filter((item) => {
+                  const timestamp = new Date(item.timestamp);
+                  // ignore ts isssue
+                  const diff = today - timestamp;
 
-                  // &&
-                  // new Date(item.timestamp ) >= tenDaysFromNow
-                )
+                  const days = diff / (1000 * 60 * 60 * 24);
+
+                  return list.name === "last 10 days"
+                    ? days <= 10
+                    : item.mentions[0] === list.name;
+                })
                 .map((item, idx) => (
                   <Link
                     key={idx}

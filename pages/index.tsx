@@ -99,7 +99,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
 
   const router = useRouter();
   const { photoId } = router.query;
-  const today = new Date();
+  const today: any = new Date();
 
   //   console.log(days);
   // console.log("split",date.split("-")[1])
@@ -154,8 +154,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               {/* filter based on states */}
               {content
                 .filter((item) => {
-                  const timestamp = new Date(item.timestamp);
-                  // ignore ts isssue
+                  const timestamp: any = new Date(item.timestamp);
                   const diff = today - timestamp;
 
                   const days = diff / (1000 * 60 * 60 * 24);

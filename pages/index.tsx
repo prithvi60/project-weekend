@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Bridge from "../components/Icons/Bridge";
 import { InstagramEmbed } from "react-social-media-embed";
 import Modal from "../components/Modal";
@@ -15,40 +15,98 @@ import Banner from "../components/Banner";
 import content from "../utils/instaposts.json";
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
-  const router = useRouter();
-  const { photoId } = router.query;
-  const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto();
-
-  const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
-    if (lastViewedPhoto && !photoId) {
-      lastViewedPhotoRef.current.scrollIntoView({ block: "center" });
-      setLastViewedPhoto(null);
-    }
-  }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
   const socials = [
+    { name: "classiculttheband" },
+    { name: "samathmika_k" },
+    { name: "idam_thespace" },
+    { name: "euphoria.chennai" },
+    { name: "uncalled_knacks" },
+    { name: "hemamalini_mk" },
+    { name: "praveez_musiq" },
+    { name: "no mentions" },
+  ];
+  // const socials = [
+  //   { name: "classiculttheband" },
+  //   { name: "All groups" },
+  //   { name: "hangouts" },
+  //   { name: "dates" },
+  //   { name: "events" },
+  //   { name: "office" },
+  //   { name: "party" },
+  // ];
+  const area = [
     {
-      url: "https://www.instagram.com/p/CsYXskYr0vC/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      name: "classiculttheband",
     },
     {
-      url: "https://www.instagram.com/reel/Cq8UNZAI_tp/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      name: "All areas",
     },
     {
-      url: "https://www.instagram.com/p/CwKufqayqhq/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      name: "Tondiarpet",
     },
     {
-      url: "    https://www.instagram.com/p/CwFSMNYS61w/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      name: "Manali",
     },
     {
-      url: "     https://www.instagram.com/p/CwUXo9jyJXq/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      name: "Thirguvottiyur",
     },
     {
-      url: "      https://www.instagram.com/reel/CvglO54P9gh/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      name: "Ennore",
+    },
+    {
+      name: "George Town",
+    },
+    {
+      name: "Nungambakkam",
+    },
+    {
+      name: "Royapettah",
+    },
+    {
+      name: "Adyar",
+    },
+    {
+      name: "Besant Nagar",
+    },
+    {
+      name: "Kotturpuram",
+    },
+    {
+      name: "Mylapore",
+    },
+    {
+      name: "Velachery",
+    },
+    {
+      name: "Taramani",
+    },
+    {
+      name: "Perungudi",
+    },
+    {
+      name: "Tambaram",
+    },
+    {
+      name: "Sholinganallur",
+    },
+    {
+      name: "Kelambakkam",
     },
   ];
-  console.log("scraper", content);
+  const [list, setList] = useState(socials[0]);
+  const [listTwo, setListTwo] = useState(area[0]);
+
+  const router = useRouter();
+  const { photoId } = router.query;
+  const today = new Date();
+  const tenDaysFromNow = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000);
+
+  // useEffect(() => {
+  //   console.log("socials changed to", list);
+  // }, [list]);
+  // useEffect(() => {
+  //   console.log("area changed to", listTwo);
+  // }, [listTwo]);
   return (
     <>
       <Head>
@@ -66,12 +124,19 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         {photoId && (
           <Modal
             images={images}
-            onClose={() => {
-              setLastViewedPhoto(photoId);
-            }}
+            // onClose={() => {
+            //   setLastViewedPhoto(photoId);
+            // }}
           />
         )}
-        <Banner />
+        <Banner
+          list={list}
+          listTwo={listTwo}
+          setList={setList}
+          setListTwo={setListTwo}
+          socials={socials}
+          area={area}
+        />
         <div
           className="flex-row-reverse justify-end gap-2 pt-3 md:flex md:overflow-hidden md:px-0"
           style={{ height: "100%" }}
@@ -90,68 +155,78 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               className=" columns-1 gap-1  sm:columns-2 xl:columns-3 2xl:columns-4
                   "
             >
-              {content.map((item, idx) => (
-                <Link
-                  key={idx}
-                  href={item.url}
-                  target="blank"
-                  // as={`/p/${id}`}
-                  // ref={
-                  //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
-                  // }
-                  shallow
-                  className="after:content group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
-                >
-                  {/* <img src={"https://scontent-atl3-2.cdninstagram.com/v/t51.2885-15/369762580_1946490639083941_2901534663185666869_n.jpg?stp=dst-jpg_e15&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=Ek-MtV3hqKAAX9K4EA3&edm=AP_V10EBAAAA&ccb=7-5&oh=00_AfCOmRfmqzncGmnR_glifZ2Cv39n3MCfs21jO0ZGgY-jOA&oe=64EA1B8D&_nc_sid=2999b8"} alt={"posts"}
+              {/* filter based on states */}
+              {content
+                .filter(
+                  (item) => item.mentions[0] === list.name
+
+                  // &&
+                  // new Date(item.timestamp ) >= tenDaysFromNow
+                )
+                .map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.url}
+                    target="blank"
+                    // as={`/p/${id}`}
+                    // ref={
+                    //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
+                    // }
+                    shallow
+                    className="after:content group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                  >
+                    {/* <img src={"https://scontent-atl3-2.cdninstagram.com/v/t51.2885-15/369762580_1946490639083941_2901534663185666869_n.jpg?stp=dst-jpg_e15&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=Ek-MtV3hqKAAX9K4EA3&edm=AP_V10EBAAAA&ccb=7-5&oh=00_AfCOmRfmqzncGmnR_glifZ2Cv39n3MCfs21jO0ZGgY-jOA&oe=64EA1B8D&_nc_sid=2999b8"} alt={"posts"}
                     className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
 
                    width={480}
                    height={480}
                 /> */}
-                  <Image
-                    alt="posts"
-                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                    style={{ transform: "translate3d(0, 0, 0)" }}
-                    placeholder="blur"
-                    blurDataURL={
-                      "data:image/jpeg;base64,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"
-                    }
-                    // item.displayurl has cdn cors
-                    loader={() => "/mockposter.jpg"}
-                    src={"/mockposter.jpg"}
-                    width={480}
-                    height={480}
-                    sizes="(max-width: 640px) 100vw,
+                    <Image
+                      alt="posts"
+                      className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
+                      style={{ transform: "translate3d(0, 0, 0)" }}
+                      placeholder="blur"
+                      blurDataURL={
+                        "data:image/jpeg;base64,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"
+                      }
+                      // item.displayurl has cdn cors
+                      loader={() => "/mockposter.jpg"}
+                      src={"/mockposter.jpg"}
+                      width={480}
+                      height={480}
+                      sizes="(max-width: 640px) 100vw,
                   (max-width: 1280px) 50vw,
                   (max-width: 1536px) 33vw,
                   25vw"
-                  />
-                  <div className="absolute top-2 text-sm text-white right-8">{item.mentions[0]}</div>
-                </Link>
-                // <div
-                //   key={idx}
-                //   className="relative cursor-pointer rounded-md mx-2"
-                //   style={
-                //     {
-                //       // maxHeight:"800px"
-                //     }
-                //   }
-                // >
-                //   <div
-                //     style={
-                //       {
-                //         // scale:"0.9"
-                //       }
-                //     }
-                //   >
-                //     <InstagramEmbed
-                //       url={item.url}
-                //       width="100%"
-                //       height={"inherit"}
-                //     />
-                //   </div>
-                // </div>
-              ))}
+                    />
+                    <div className="absolute right-8 top-2 text-sm text-white">
+                      {item.mentions[0]}
+                    </div>
+                  </Link>
+                  // <div
+                  //   key={idx}
+                  //   className="relative cursor-pointer rounded-md mx-2"
+                  //   style={
+                  //     {
+                  //       // maxHeight:"800px"
+                  //     }
+                  //   }
+                  // >
+                  //   <div
+                  //     style={
+                  //       {
+                  //         // scale:"0.9"
+                  //       }
+                  //     }
+                  //   >
+                  //     <InstagramEmbed
+                  //       url={item.url}
+                  //       width="100%"
+                  //       height={"inherit"}
+                  //     />
+                  //   </div>
+                  // </div>
+                ))}
               {/* {socials.map((links, idx) => (
                 <div
                   key={idx}

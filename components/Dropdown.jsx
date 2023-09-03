@@ -7,9 +7,9 @@ export default function Dropdown({ category, type, list, setList }) {
 
   return (
     <div
-      style={{ zIndex: "1000" }}
       className="fixed w-32"
       style={{
+        zIndex: "1000" ,
         right: type === "area" ? "12rem" : "4rem",
       }}
     >

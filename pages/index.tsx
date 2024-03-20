@@ -13,6 +13,7 @@ import type { ImageProps } from "../utils/types";
 import { useLastViewedPhoto } from "../utils/useLastViewedPhoto";
 import Banner from "../components/Banner";
 import content from "../utils/instaposts.json";
+import ModalForMobile from "../components/ModalForMobile";
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const socials = [
@@ -116,7 +117,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           content="https://nextjsconf-pics.vercel.app/og-image.png"
         />
       </Head>
-      <main className="p-4 pb-0 md:mx-auto  ">
+      <main className="p-4 pb-0 md:mx-auto ">
         {photoId && (
           <Modal
             images={images}
@@ -134,22 +135,21 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           area={area}
         />
         <div
-          className="flex-row-reverse justify-end gap-2 pt-3 md:flex md:overflow-hidden md:px-0"
-          style={{ height: "100%" }}
+          className="h-[90vh] flex-row-reverse justify-end gap-2 pt-3 md:flex md:overflow-hidden md:px-0"
+          // style={{ height: "100%" }}
         >
           <div
-            className=" scrollbar md:w-2/3 
-              "
-            style={{
-              overflowY: "auto",
-              height: "100%",
-              maxHeight: "85vh",
-              width: "100%",
-            }}
+            className="w-full h-full overflow-auto scrollbar"
+            // style={{
+            //   overflowY: "auto",
+            //   height: "100%",
+            //   maxHeight: "85vh",
+            //   width: "100%",
+            // }}
           >
             <div
-              className=" columns-1 gap-1  sm:columns-2 xl:columns-3 2xl:columns-4
-                  "
+              // className="gap-1 columns-1 sm:columns-2 xl:columns-3 2xl:columns-4"
+              className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
             >
               {/* filter based on states */}
               {content
@@ -173,24 +173,24 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                     //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
                     // }
                     shallow
-                    className="after:content group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                    className="relative block w-full mb-5 cursor-pointer after:content group after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                   >
                     {/* <img src={"https://scontent-atl3-2.cdninstagram.com/v/t51.2885-15/369762580_1946490639083941_2901534663185666869_n.jpg?stp=dst-jpg_e15&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=Ek-MtV3hqKAAX9K4EA3&edm=AP_V10EBAAAA&ccb=7-5&oh=00_AfCOmRfmqzncGmnR_glifZ2Cv39n3MCfs21jO0ZGgY-jOA&oe=64EA1B8D&_nc_sid=2999b8"} alt={"posts"}
-                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
+                    className="transition transform rounded-lg brightness-90 will-change-auto group-hover:brightness-110"
 
                    width={480}
                    height={480}
                 /> */}
                     <Image
                       alt="posts"
-                      className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
+                      className="transition transform rounded-lg brightness-90 will-change-auto group-hover:brightness-110"
                       style={{ transform: "translate3d(0, 0, 0)" }}
                       placeholder="blur"
                       blurDataURL={
                         "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAChALIDASIAAhEBAxEB/8QAGgABAAMBAQEAAAAAAAAAAAAAAAIDBAEGBf/EACAQAQACAwEAAgMBAAAAAAAAAAABAgMREhMxYQRBUSH/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQIDBP/EABsRAQEBAAMBAQAAAAAAAAAAAAABEQISITFR/9oADAMBAAIRAxEAPwD1LqOzYiTqOzYJDm3NoOyjJMuTKCMoWSmULSKrsqsstKq0qKrKrLLSptLSq7KrLLSqtKiEoy7MoTIA5s2gkI7d2g6ObEHrNm1fR0rKzbu1XTvQLNm1fTnSCyZRmUJs5NkHZlC0uTZC1hXLSqtKVrKbWUctKm0pWsptZpUbSqtKVrKrWUcmUZlybITYVPZtX0dIizZtX0dILNivoQeq6OlHTvasLujpT2dgu6OlPbnaKumyM2VTdGboq2bK7WQm6E3BK1lVrOWuqtdR21lNrOWuqtdVdtZVayNrqrXaE5shNldrq5uqrujtnnIeiDR272zeh6MmNPYzegGPVdnbP2djk0dnbP2dorR252z+jnoitE3Rm6iciM5BV83Qm6mciucgLrXVWuqtkVWyKq211Nrq7ZFN8qwWWyKbZFOTNEftmvn38OkitN80R+1Vs/8AGWckyj1K+Q2NM5pc9pZtyblm8l7NPtJ7Szbk3LOr2jT7SM25E07R7D0PRl9D0R59avRz0ZvRz0RdavRGcjNORGcqK1TkRnIyzlQnKmtNU5FdsrNbN9qrZ07K1Wyqb5ftkv8AkRH7Z7/kTPw1Lo2ZM8R+2XJ+Tv4Z5tNvmXG4JWvNvlEF2oAIAAAAAAPu+rnqydnbOx5e1a/VGcrLN0ZvP9ZtalrXOX7QnMyzf7Qm/wBs+1uVqnN9q7Z/tktkQmZn5WcP10mtFvyP4qtltb6Vjc4yKfIDQAAAAAAAAAAAA27c24OLzky5MjkwqxGZVWlbMK7VajpEAG2wAAAAAAAAAAAAAAAG3Rpbwebl1eb1To0u8zzTF9UcozVo8zzNa9ZJohNJj4bJxozjWc2pbGOY0402x/Sq2PXw3OUrU5Kw1oaaAAAAAAAAAAAAfa5OVvJyy54q5d4W8nKGKuHOF3JymCiaIzjaeUZqziss41dsbZNULVMV8++JRas1n/X0rUZ8mPbc1YxiVqTWUW1AAAAAAAAAAei07p11GEdO6ddQR0aSdQQ05MJuSgrmEJhbMITCqptCm9Wi0KrwsajFloz2htyR/jLaHSfG/sVDs/LjLAAAAAAAAD0oDLLoAjoCAjIA5KEgKrsqsCxqM+Rlt8yDpG4qn5cBmsAAAAAAAAP/2Q=="
                       }
                       // item.displayurl has cdn cors
-                      loader={() => "/mockposter.jpg"}
+                      // loader={() => "/mockposter.jpg"}
                       src={"/mockposter.jpg"}
                       width={480}
                       height={480}
@@ -199,13 +199,13 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   (max-width: 1536px) 33vw,
                   25vw"
                     />
-                    <div className="absolute right-8 top-2 text-sm text-white">
+                    <div className="absolute text-sm text-white right-8 top-2">
                       {item.mentions[0]}
                     </div>
                   </Link>
                   // <div
                   //   key={idx}
-                  //   className="relative cursor-pointer rounded-md mx-2"
+                  //   className="relative mx-2 rounded-md cursor-pointer"
                   //   style={
                   //     {
                   //       // maxHeight:"800px"
@@ -237,7 +237,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   // }
                   // shallow
                   className="py-2"
-                  // className="after:content group relative mx-2 mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                  // className="relative block w-full mx-2 mb-5 after:content group cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                 >
                   <InstagramEmbed url={links.url} width={328} 
                   // height={480} 
@@ -246,31 +246,47 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               ))} */}
             </div>
           </div>
-          <div className="after:content relative relative mb-2 hidden max-h-full max-w-[340px] flex-col items-center  justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-0 pt-64 text-center  text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight md:flex md:w-1/3 md:pb-4  lg:pt-0 ">
+          <div className="after:content relative mb-2 hidden h-full min-w-[340px] flex-col items-center  justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-0 text-center  text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight md:flex md:w-1/2 md:pb-4  lg:pt-0 ">
             {/* <div className="absolute inset-0 flex items-center justify-center opacity-20">
-              <span className="flex  max-w-full items-center justify-center">
+              <span className="flex items-center justify-center max-w-full">
                 <Bridge />
               </span>
               <span className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
             </div> */}
-            <h1 className="pt-8 text-base font-bold uppercase tracking-widest">
+            <h1 className="pt-8 text-base font-bold tracking-widest uppercase">
               Vaara Irudhi
             </h1>
-            <h1 className="mb-4 mt-2  text-sm font-semibold uppercase tracking-widest">
+            <h1 className="mt-2 mb-4 text-sm font-semibold tracking-widest uppercase">
               Community run latest events page happening in Chennai.
             </h1>
             <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
               We cover all the latest events in Chennai
             </p>
-            <a
-              className="pointer z-10 mt-2 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
+            {/* <a
+              className="z-10 px-3 py-2 mt-2 text-sm font-semibold text-black transition bg-white border border-white rounded-lg pointer hover:bg-white/10 hover:text-white md:mt-2"
               href="https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cloudinary&project-name=nextjs-image-gallery&repository-name=with-cloudinary&env=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,CLOUDINARY_FOLDER&envDescription=API%20Keys%20from%20Cloudinary%20needed%20to%20run%20this%20application"
               target="_blank"
               rel="noreferrer"
             >
               Subscribe for updates
-            </a>
-            <div className="absolute bottom-6  px-2 text-center text-white/80">
+            </a> */}
+            <h3 className="text-base font-semibold text-white capitalize md:text-lg xl:text-xl">
+              join our newsletter
+            </h3>
+            <form className="flex flex-col gap-5">
+              <input
+                type="email"
+                className="rounded-sm border-none px-3 py-2 text-base text-black placeholder:px-1.5 placeholder:capitalize placeholder:text-gray-500 focus-within:border-none focus-within:outline-none focus-within:ring-0 md:w-[250px] md:text-lg lg:w-[275px] "
+                placeholder="Enter your Email here"
+              />
+              <button
+                type="submit"
+                className="px-3 py-2 mt-2 text-sm font-semibold text-black capitalize transition bg-white border border-white rounded-lg pointer hover:bg-white/10 hover:text-white md:mt-2"
+              >
+                enroll me
+              </button>
+            </form>
+            <div className="absolute px-2 text-center bottom-6 text-white/80">
               Powered by{" "}
               <div className="text-sm">
                 <a
@@ -296,6 +312,12 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         </div>
         {/* </div> */}
       </main>
+      <section>
+        {/* <button  className="absolute p-2 text-sm font-semibold text-black capitalize transition bg-white border border-white rounded-lg bottom-5 right-10 pointer md:mt-2">enroll me</button> */}
+
+        {/* Modal */}
+        <ModalForMobile />
+      </section>
     </>
   );
 };

@@ -270,20 +270,20 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             >
               Subscribe for updates
             </a> */}
-            <h3 className="text-base font-semibold text-white capitalize md:text-lg xl:text-xl">
+            <h3 className="text-base font-semibold text-white capitalize md:text-lg xl:text-xl mt-24">
               join our newsletter
             </h3>
             <form className="flex flex-col gap-5">
               <input
                 type="email"
-                className="rounded-sm border-none px-3 py-2 text-base text-black placeholder:px-1.5 placeholder:capitalize placeholder:text-gray-500 focus-within:border-none focus-within:outline-none focus-within:ring-0 md:w-[250px] md:text-lg lg:w-[275px] "
-                placeholder="Enter your Email here"
+                className="rounded-sm border-none px-3 py-2 text-base text-black placeholder:px-1.5 placeholder:capitalize placeholder:text-gray-500 focus-within:border-none focus-within:outline-none focus-within:ring-0 md:w-[250px] md:text-lg lg:w-[275px] placeholder:text-center "
+                placeholder="Drop your Email Id"
               />
               <button
                 type="submit"
                 className="px-3 py-2 mt-2 text-sm font-semibold text-black capitalize transition bg-white border border-white rounded-lg pointer hover:bg-white/10 hover:text-white md:mt-2"
               >
-                enroll me
+                enroll now
               </button>
             </form>
             <div className="absolute px-2 text-center bottom-6 text-white/80">

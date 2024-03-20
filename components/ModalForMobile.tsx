@@ -16,7 +16,7 @@ const ModalForMobile = () => {
       <button
         type="button"
         onClick={openModal}
-        className="absolute p-2 text-sm font-semibold text-black capitalize transition bg-white border border-white rounded-lg pointer bottom-5 right-10 md:mt-2"
+        className="absolute block p-2 text-lg font-semibold text-black capitalize transition bg-white border border-white rounded-lg md:hidden pointer bottom-5 right-10 md:mt-2 animate-pulse"
       >
         Subscribe
       </button>

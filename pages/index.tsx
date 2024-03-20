@@ -89,7 +89,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
       name: "Tambaram",
     },
     {
-      name: "Sholinganallur",
+      name: "Sholinganalur",
     },
     {
       name: "Kelambakkam",

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+// const { ApifyClient } = require('apify-client');
 import Bridge from "../components/Icons/Bridge";
 import { InstagramEmbed } from "react-social-media-embed";
 import Modal from "../components/Modal";
@@ -101,9 +102,25 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter();
   const { photoId } = router.query;
   const today: any = new Date();
+  //  get scraper data
+  const [data, setData] = useState(null);
 
-  //   console.log(days);
-  // console.log("split",date.split("-")[1])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.apify.com/v2/actor-tasks/zzpritzz~upcoming-openmics-chennai/runs/last/dataset/items?token=${process.env.NEXT_PUBLIC_APIFY_TOKEN}`
+        );
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error,process.env.NEXT_PUBLIC_APIFY_TOKEN);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log("data from scrape", data);
   return (
     <>
       <Head>
@@ -139,7 +156,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           // style={{ height: "100%" }}
         >
           <div
-            className="w-full h-full overflow-auto scrollbar"
+            className="scrollbar h-full w-full overflow-auto"
             // style={{
             //   overflowY: "auto",
             //   height: "100%",
@@ -173,7 +190,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                     //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
                     // }
                     shallow
-                    className="relative block w-full mb-5 cursor-pointer after:content group after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                    className="after:content group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                   >
                     {/* <img src={"https://scontent-atl3-2.cdninstagram.com/v/t51.2885-15/369762580_1946490639083941_2901534663185666869_n.jpg?stp=dst-jpg_e15&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=Ek-MtV3hqKAAX9K4EA3&edm=AP_V10EBAAAA&ccb=7-5&oh=00_AfCOmRfmqzncGmnR_glifZ2Cv39n3MCfs21jO0ZGgY-jOA&oe=64EA1B8D&_nc_sid=2999b8"} alt={"posts"}
                     className="transition transform rounded-lg brightness-90 will-change-auto group-hover:brightness-110"
@@ -183,7 +200,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                 /> */}
                     <Image
                       alt="posts"
-                      className="transition transform rounded-lg brightness-90 will-change-auto group-hover:brightness-110"
+                      className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
                       style={{ transform: "translate3d(0, 0, 0)" }}
                       placeholder="blur"
                       blurDataURL={
@@ -199,7 +216,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   (max-width: 1536px) 33vw,
                   25vw"
                     />
-                    <div className="absolute text-sm text-white right-8 top-2">
+                    <div className="absolute right-8 top-2 text-sm text-white">
                       {item.mentions[0]}
                     </div>
                   </Link>
@@ -253,10 +270,10 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               </span>
               <span className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
             </div> */}
-            <h1 className="pt-8 text-base font-bold tracking-widest uppercase">
+            <h1 className="pt-8 text-base font-bold uppercase tracking-widest">
               Vaara Irudhi
             </h1>
-            <h1 className="mt-2 mb-4 text-sm font-semibold tracking-widest uppercase">
+            <h1 className="mb-4 mt-2 text-sm font-semibold uppercase tracking-widest">
               Community run latest events page happening in Chennai.
             </h1>
             <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
@@ -270,23 +287,23 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             >
               Subscribe for updates
             </a> */}
-            <h3 className="text-base font-semibold text-white capitalize md:text-lg xl:text-xl mt-24">
+            <h3 className="mt-24 text-base font-semibold capitalize text-white md:text-lg xl:text-xl">
               join our newsletter
             </h3>
             <form className="flex flex-col gap-5">
               <input
                 type="email"
-                className="rounded-sm border-none px-3 py-2 text-base text-black placeholder:px-1.5 placeholder:capitalize placeholder:text-gray-500 focus-within:border-none focus-within:outline-none focus-within:ring-0 md:w-[250px] md:text-lg lg:w-[275px] placeholder:text-center "
+                className="rounded-sm border-none px-3 py-2 text-base text-black placeholder:px-1.5 placeholder:text-center placeholder:capitalize placeholder:text-gray-500 focus-within:border-none focus-within:outline-none focus-within:ring-0 md:w-[250px] md:text-lg lg:w-[275px] "
                 placeholder="Drop your Email Id"
               />
               <button
                 type="submit"
-                className="px-3 py-2 mt-2 text-sm font-semibold text-black capitalize transition bg-white border border-white rounded-lg pointer hover:bg-white/10 hover:text-white md:mt-2"
+                className="pointer mt-2 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold capitalize text-black transition hover:bg-white/10 hover:text-white md:mt-2"
               >
                 enroll now
               </button>
             </form>
-            <div className="absolute px-2 text-center bottom-6 text-white/80">
+            <div className="absolute bottom-6 px-2 text-center text-white/80">
               Powered by{" "}
               <div className="text-sm">
                 <a

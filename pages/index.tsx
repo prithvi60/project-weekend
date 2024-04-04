@@ -114,7 +114,11 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         const data = await response.json();
         setData(data);
       } catch (error) {
-        console.error("Error fetching data:", error,process.env.NEXT_PUBLIC_APIFY_TOKEN);
+        console.error(
+          "Error fetching data:",
+          error,
+          process.env.NEXT_PUBLIC_APIFY_TOKEN
+        );
       }
     };
 
@@ -169,35 +173,30 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
             >
               {/* filter based on states */}
-              {content
-                .filter((item) => {
-                  const timestamp: any = new Date(item.timestamp);
-                  const diff = today - timestamp;
+              {data &&
+                data[0]?.openmics?.length > 0 &&
+                // .filter((item) => {
+                //   const timestamp: any = new Date(item.timestamp);
+                //   const diff = today - timestamp;
 
-                  const days = diff / (1000 * 60 * 60 * 24);
+                //   const days = diff / (1000 * 60 * 60 * 24);
 
-                  return list.name === "last 10 days"
-                    ? days <= 10
-                    : item.mentions[0] === list.name;
-                })
-                .map((item, idx) => (
+                //   return list.name === "last 10 days"
+                //     ? days <= 10
+                //     : item.mentions[0] === list.name;
+                // })
+                data[0].openmics.map((item, idx) => (
                   <Link
                     key={idx}
-                    href={item.url}
+                    href={data[0].url}
                     target="blank"
                     // as={`/p/${id}`}
                     // ref={
                     //   id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null
                     // }
                     shallow
-                    className="after:content group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                    className="after:content w-500 group relative mb-5 block w-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                   >
-                    {/* <img src={"https://scontent-atl3-2.cdninstagram.com/v/t51.2885-15/369762580_1946490639083941_2901534663185666869_n.jpg?stp=dst-jpg_e15&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=Ek-MtV3hqKAAX9K4EA3&edm=AP_V10EBAAAA&ccb=7-5&oh=00_AfCOmRfmqzncGmnR_glifZ2Cv39n3MCfs21jO0ZGgY-jOA&oe=64EA1B8D&_nc_sid=2999b8"} alt={"posts"}
-                    className="transition transform rounded-lg brightness-90 will-change-auto group-hover:brightness-110"
-
-                   width={480}
-                   height={480}
-                /> */}
                     <Image
                       alt="posts"
                       className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
@@ -208,16 +207,25 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                       }
                       // item.displayurl has cdn cors
                       // loader={() => "/mockposter.jpg"}
-                      src={"/mockposter.jpg"}
-                      width={480}
-                      height={480}
-                      sizes="(max-width: 640px) 100vw,
-                  (max-width: 1280px) 50vw,
-                  (max-width: 1536px) 33vw,
-                  25vw"
+                      src={item.imageUrl}
+                      width={680}
+                      height={680}
+                  //     sizes="
+                  //     (max-width: 640px) 100vw,
+           
+                  // 25vw"
                     />
-                    <div className="absolute right-8 top-2 text-sm text-white">
-                      {item.mentions[0]}
+                    <div className="absolute right-8 top-2 text-lg font-bold text-white">
+                      {item.ticketPrice}
+                   
+                    </div>
+                    <div className="absolute left-8 top-2 text-lg font-bold text-white">
+                    {item.date}
+                    </div>
+                    <div className="absolute  text-md text-white">
+                      {/* {item.title} */}
+                     <strong> Venue</strong> - {item.venue}
+                     
                     </div>
                   </Link>
                   // <div
